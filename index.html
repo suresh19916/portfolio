@@ -98,6 +98,7 @@
 		.hero-card .dots i:nth-child(2) { background: #ffbd2e; }
 		.hero-card .dots i:nth-child(3) { background: #27c93f; }
 		.hero-card pre { white-space: pre-wrap; color: var(--muted); }
+		.hero .hero-note { margin: 1.6rem 0 0; padding-top: 1.4rem; border-top: 1px dashed var(--line); font-family: inherit; font-size: 1.25rem; color: var(--muted); }
 		.k { color: #c792ea; } .s { color: var(--accent); } .f { color: #82aaff; } .c { color: #6b6d75; }
 
 		/* ---------- sections ---------- */
@@ -171,6 +172,10 @@
 		.card h3 { font-size: 1.9rem; margin-bottom: 0.8rem; }
 		.card p { color: var(--muted); font-size: 1.45rem; }
 		.card .tag { display: inline-block; margin-top: 1.4rem; font-size: 1.3rem; color: var(--accent); }
+		.card .tags { margin: 0.4rem 0 1.6rem; }
+		.card ul.points { display: grid; gap: 0.6rem; }
+		.card ul.points li { color: var(--muted); font-size: 1.45rem; padding-left: 2rem; position: relative; }
+		.card ul.points li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); }
 
 		/* languages */
 		.langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 1.6rem; margin-top: 4rem; }
@@ -221,6 +226,7 @@
 				<li><a href="#about">About</a></li>
 				<li><a href="#skills">Skills</a></li>
 				<li><a href="#experience">Experience</a></li>
+				<li><a href="#projects">Projects</a></li>
 				<li><a href="#achievements">Achievements</a></li>
 				<li><a href="#education">Education</a></li>
 				<li><a href="#contact">Contact</a></li>
@@ -256,22 +262,26 @@
 					<div class="btns">
 						<a href="#contact" class="btn btn-primary">Hire Me</a>
 						<!-- TODO: put your resume PDF next to index.html as Suresh_Babu_QA_Lead.pdf -->
-						<a href="./Suresh_Babu_QA_Lead.pdf" class="btn btn-ghost" download>Download CV</a>
+						<a href="asset/Suresh_Babu_QA_Lead.pdf" class="btn btn-ghost" download>Download CV</a>
 					</div>
 				</div>
 				<div class="hero-card" data-aos="fade-left" aria-hidden="true">
 					<div class="dots"><i></i><i></i><i></i></div>
-<pre><span class="c"># test_quality.py</span>
-<span class="k">from</span> playwright.sync_api <span class="k">import</span> expect
+<pre><span class="c"># test_docs.py · pytest-playwright</span>
+<span class="k">import</span> re
+<span class="k">from</span> playwright.sync_api <span class="k">import</span> Page, expect
 
-<span class="k">def</span> <span class="f">test_release_ready</span>(page, ai):
-    page.goto(<span class="s">"https://app.example.com"</span>)
-    expect(page).to_have_title(<span class="s">"Dashboard"</span>)
+<span class="k">def</span> <span class="f">test_get_started</span>(page: Page):
+    page.goto(<span class="s">"https://playwright.dev"</span>)
+    expect(page).to_have_title(re.compile(<span class="s">"Playwright"</span>))
 
-    report = ai.<span class="f">analyze_failures</span>()
-    <span class="k">assert</span> report.root_cause <span class="k">is</span> <span class="k">None</span>
+    page.get_by_role(<span class="s">"link"</span>, name=<span class="s">"Get started"</span>).click()
+    expect(page.get_by_role(
+        <span class="s">"heading"</span>, name=<span class="s">"Installation"</span>
+    )).to_be_visible()
 
-<span class="c"># ✔ 1 passed — shipped with confidence</span></pre>
+<span class="c"># ✔ 1 passed</span></pre>
+					<p class="hero-note">Sample test against the public Playwright docs. In my projects, failed runs feed an LLM for root-cause analysis and reporting.</p>
 				</div>
 			</div>
 		</section>
@@ -282,17 +292,17 @@
 			<p class="section-sub" data-aos="fade-up">Quality is not a phase — it's a culture.</p>
 			<div class="about-grid">
 				<div data-aos="fade-up">
-					<!-- TODO: set your exact years of experience -->
 					<p>
-						QA Lead with <strong>X+ years of experience</strong> in Quality Assurance and Software Testing,
+						QA Lead with <strong>7+ years of experience</strong> in Quality Assurance and Software Testing,
 						specializing in <strong>Web &amp; Mobile Testing, Automation Engineering, API Testing,</strong> and
 						<strong>AI-Driven Quality Engineering</strong>. Experienced in leading QA teams, defining test
 						strategies, and managing end-to-end quality delivery.
 					</p>
 					<p>
-						Hands-on expertise in <strong>Playwright, Selenium, Appium, Python, PyTest,</strong> and
-						<strong>Postman</strong>. Actively leveraging <strong>Generative AI and LLMs</strong> to enhance test
-						case generation, failure analysis, root cause investigation, and intelligent QA reporting.
+						Hands-on expertise in <strong>Flutter, Patrol, Playwright, Selenium, Appium, Python, Dart, PyTest,</strong>
+						and <strong>Postman</strong>. Actively leveraging <strong>Generative AI and LLMs</strong> to enhance test
+						case generation, automation development, failure analysis, root cause investigation, and intelligent
+						QA reporting.
 					</p>
 					<p>
 						Passionate about driving innovation and transforming traditional QA practices into
@@ -302,7 +312,7 @@
 				<div class="about-side" data-aos="fade-up" data-aos-delay="100">
 					<img src="./asset/profile.jpg" alt="Suresh Babu B" class="profile-photo" width="600" height="708" loading="lazy" />
 					<div class="stats">
-						<div class="stat"><b>X+</b><span>Years in QA</span></div>
+						<div class="stat"><b>7+</b><span>Years in QA</span></div>
 						<div class="stat"><b>3</b><span>Roles, one growth path</span></div>
 						<div class="stat"><b>Web</b><span>&amp; Mobile automation</span></div>
 						<div class="stat"><b>AI</b><span>Powered testing</span></div>
@@ -319,43 +329,43 @@
 				<div class="skill-card" data-aos="fade-up">
 					<h3><span class="ico">✓</span>QA &amp; Testing</h3>
 					<ul class="tags">
-						<li>Manual Testing</li><li>Functional</li><li>Regression</li><li>Integration</li>
-						<li>Smoke</li><li>Sanity</li><li>Test Strategy</li><li>Test Planning</li>
+						<li>Manual</li><li>Functional</li><li>Regression</li><li>Integration</li><li>Smoke</li><li>Sanity</li>
 					</ul>
 				</div>
 				<div class="skill-card" data-aos="fade-up" data-aos-delay="50">
-					<h3><span class="ico">⚙</span>Automation</h3>
+					<h3><span class="ico">▯</span>Mobile Automation</h3>
 					<ul class="tags">
-						<li>Playwright</li><li>Selenium</li><li>Appium</li><li>Python</li><li>Java</li>
-						<li>PyTest</li><li>TestNG</li><li>Page Object Model (POM)</li>
+						<li>Flutter</li><li>Patrol</li><li>Dart</li><li>Appium</li>
 					</ul>
 				</div>
 				<div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-					<h3><span class="ico">✦</span>AI &amp; Generative AI</h3>
+					<h3><span class="ico">⚙</span>Web/Desktop Automation</h3>
 					<ul class="tags">
-						<li>Generative AI</li><li>LLMs</li><li>AI-assisted Testing</li><li>ChatGPT</li>
-						<li>Claude</li><li>Gemini</li><li>AI Test Generation</li><li>Failure Analysis</li>
+						<li>Playwright</li><li>Selenium</li><li>Python</li><li>PyTest</li>
 					</ul>
 				</div>
 				<div class="skill-card" data-aos="fade-up">
-					<h3><span class="ico">⇄</span>API &amp; Database</h3>
+					<h3><span class="ico">✦</span>AI &amp; LLM</h3>
 					<ul class="tags">
-						<li>REST API Testing</li><li>Postman</li><li>API Automation</li>
-						<li>MySQL</li><li>MongoDB</li><li>Backend Validation</li>
+						<li>Generative AI</li><li>LLMs</li><li>ChatGPT</li><li>Claude</li><li>Gemini</li><li>AI-Assisted Testing</li>
 					</ul>
 				</div>
 				<div class="skill-card" data-aos="fade-up" data-aos-delay="50">
-					<h3><span class="ico">⌘</span>Tools &amp; Technologies</h3>
+					<h3><span class="ico">⇄</span>API &amp; Database</h3>
 					<ul class="tags">
-						<li>JIRA</li><li>Git</li><li>Jenkins</li><li>Docker</li><li>Android Studio</li>
-						<li>VS Code</li><li>BrowserStack</li><li>LambdaTest</li>
+						<li>REST API</li><li>Postman</li><li>MySQL</li><li>MongoDB</li>
 					</ul>
 				</div>
 				<div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-					<h3><span class="ico">★</span>Process &amp; Leadership</h3>
+					<h3><span class="ico">⌘</span>Tools</h3>
 					<ul class="tags">
-						<li>QA Team Leadership</li><li>Agile Scrum</li><li>SDLC</li><li>STLC</li>
-						<li>Sprint Planning</li><li>Defect Management</li><li>Release Management</li><li>CI/CD</li>
+						<li>JIRA</li><li>Git</li><li>Jenkins</li><li>Docker</li><li>BrowserStack</li><li>LambdaTest</li>
+					</ul>
+				</div>
+				<div class="skill-card" data-aos="fade-up">
+					<h3><span class="ico">★</span>Leadership</h3>
+					<ul class="tags">
+						<li>QA Strategy</li><li>Team Leadership</li><li>Agile Scrum</li><li>CI/CD</li><li>Release Management</li>
 					</ul>
 				</div>
 			</div>
@@ -415,6 +425,45 @@
 						<li>Validated <b>booking workflows, payment integrations and business-critical functionalities</b>.</li>
 						<li>Collaborated with developers and team members to ensure timely defect resolution.</li>
 						<li>Participated in <b>Agile Scrum ceremonies</b> and release testing activities.</li>
+					</ul>
+				</article>
+			</div>
+		</section>
+
+		<!-- PROJECTS -->
+		<section id="projects" class="container">
+			<h2 class="section-title" data-aos="fade-up">Key Projects</h2>
+			<p class="section-sub" data-aos="fade-up">Frameworks and integrations I've built to raise the quality bar.</p>
+			<div class="cards">
+				<article class="card" data-aos="fade-up">
+					<span class="ico">📱</span>
+					<h3>Flutter Mobile Automation Framework</h3>
+					<ul class="tags"><li>Flutter</li><li>Patrol</li><li>Dart</li></ul>
+					<ul class="points">
+						<li>Riverpod architecture</li>
+						<li>Page Object Model</li>
+						<li>Android &amp; iOS integration testing</li>
+					</ul>
+				</article>
+				<article class="card" data-aos="fade-up" data-aos-delay="50">
+					<span class="ico">🖥</span>
+					<h3>Desktop Web Automation Framework</h3>
+					<ul class="tags"><li>Playwright</li><li>Python</li></ul>
+					<ul class="points">
+						<li>Booking workflow automation</li>
+						<li>Report validation</li>
+						<li>Reusable page objects</li>
+					</ul>
+				</article>
+				<article class="card" data-aos="fade-up" data-aos-delay="100">
+					<span class="ico">🤖</span>
+					<h3>AI-Powered QA Integration</h3>
+					<ul class="tags"><li>LLMs</li><li>Generative AI</li></ul>
+					<ul class="points">
+						<li>LLM-based failure analysis</li>
+						<li>Automated root cause investigation</li>
+						<li>Intelligent HTML reporting</li>
+						<li>AI-assisted defect analysis</li>
 					</ul>
 				</article>
 			</div>
